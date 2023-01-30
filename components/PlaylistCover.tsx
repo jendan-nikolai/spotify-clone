@@ -1,11 +1,4 @@
-import React, { useEffect, useState } from 'react';
-import { useSession } from 'next-auth/react';
-import { shuffle } from 'lodash';
-
-// data needed:
-// -album title
-// -artist
-// songs, duration
+import React from 'react';
 
 function PlaylistCover() {
     return (
