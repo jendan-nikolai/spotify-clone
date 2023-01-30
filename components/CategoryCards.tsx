@@ -1,7 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Link from 'next/link'
-
-import useRecentlyPlayed from '../hooks/useRecentlyPlayed';
 
 const CategoryCards = ({ imageUrl, name }) => {
   return (

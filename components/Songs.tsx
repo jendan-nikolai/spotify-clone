@@ -14,7 +14,6 @@ function Songs() {
 
         if (spotifyApi.getAccessToken()) {
             spotifyApi.getUserPlaylists().then((data) => {
-                // console.log('data', data);
             });
         }
     }, [playlist, spotifyApi]);

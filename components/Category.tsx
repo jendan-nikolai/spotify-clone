@@ -1,7 +1,5 @@
 import React from 'react'
 
-import CategoryCard from './CategoryCard';
-
 const Category = ({imageUrl, label, subLabel }) => {
     return (
             <div className="flex flex-col items-center w-48 bg-gray-800 rounded h-70 hover:bg-gray-700 hover:opacity-80">
