@@ -35,7 +35,7 @@ function HomePlaylist() {
   return (
     <div className="flex-grow h-screen p-2 px-4 overflow-y-scroll scrollbar-hide" >
       <header className="absolute top-5 right-8">
-        <div className="flex items-center p-1 pr-2 space-x-3 text-white bg-black rounded-full opacity-90 hover:opacity-80 cursor:pointer"
+        <div className="flex items-center p-1 pr-2 space-x-3 text-white bg-black rounded-full cursor-pointer opacity-90 hover:opacity-80"
         >
           <img
             className="w-6 h-6 rounded-full"
@@ -71,7 +71,7 @@ function HomePlaylist() {
             <Link href={`/playlist`} onClick={() => setPlaylistId(item.id)}>
               <Category
                 key={item.id}
-                imageUrl={item?.images?.[0].url}
+                imageUrl={item?.images?.[0]?.url}
                 label={item?.name}
                 subLabel={item.description}
               />
