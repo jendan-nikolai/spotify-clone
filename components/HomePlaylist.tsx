@@ -37,7 +37,7 @@ function HomePlaylist() {
     <div className="flex-grow h-screen p-2 px-4 overflow-y-scroll scrollbar-hide">
       <header className="absolute top-5 right-8">
         <div
-          className="flex items-center p-1 pr-2 space-x-3 text-white bg-black rounded-full opacity-90 hover:opacity-80 cursor:pointer"
+          className="flex items-center p-1 pr-2 space-x-3 text-white bg-black rounded-full cursor-pointer opacity-90 hover:opacity-80"
           onClick={() => signOut()}
         >
           <img
