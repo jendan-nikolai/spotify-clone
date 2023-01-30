@@ -14,7 +14,7 @@ function playlists () {
       </main>
 
       <div className="sticky bottom-0">
-        <Player />
+        {/* <Player /> */}
       </div>
     </div>
       
