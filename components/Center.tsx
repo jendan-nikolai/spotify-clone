@@ -13,7 +13,7 @@ import Songs from '../components/Songs'
 import NavigationBar from './NavigationBar';
 import PlaylistCover from './PlaylistCover';
 import useSpotify from '../hooks/useSpotify';
-import { Playlist } from '../pages/data';
+import { Playlist } from '../_mock/data';
 import { 
     playlistIdState, 
     playlistState, 

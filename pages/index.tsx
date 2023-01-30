@@ -1,9 +1,7 @@
 import Sidebar from "../components/Sidebar";
 import HomePlaylist from "../components/HomePlaylist";
 import Player from "../components/Player";
-import Center from "../components/Center";
 import { getSession } from "next-auth/react"
-import HomePage from "../components/HomePage";
 
 export default function Home() {
   return (
@@ -11,7 +9,6 @@ export default function Home() {
       <main className="flex">
         <Sidebar />
         <HomePlaylist />
-        {/* <Center /> */}
       </main>
       <div className="sticky bottom-0">
         <Player />
