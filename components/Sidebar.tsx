@@ -83,7 +83,7 @@ function Sidebar() {
                         key={playlist.id}
                         onClick={() => setPlaylistId(playlist.id)}
                         className="cursor-pointer hover:text-white">
-                        <Link href={`/playlist/${playlist.id}`}>
+                        <Link href={`/playlist`}>
                             {playlist.name}
                         </Link>
                     </p>
