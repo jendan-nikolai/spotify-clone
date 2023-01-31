@@ -9,7 +9,8 @@ import {
   PlusCircleIcon,
 } from "@heroicons/react/outline";
 import { HeartIcon } from "@heroicons/react/solid";
-import { signOut, useSession } from "next-auth/react";
+import { useSession } from "next-auth/react";
+
 import { playlistIdState } from "../atoms/playlistAtom";
 import useSpotify from "../hooks/useSpotify";
 
@@ -84,7 +85,7 @@ function Sidebar() {
             onClick={() => setPlaylistId(playlist.id)}
             className="cursor-pointer hover:text-white"
           >
-            <Link href="/tracks/trackPlaylist" as={`/tracks/${playlist.id}`} >
+            <Link href={`/tracks/${playlist.id}`} >
                 {playlist.name}
             </Link>
           </p>
