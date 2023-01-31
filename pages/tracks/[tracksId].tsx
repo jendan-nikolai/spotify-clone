@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
+import { getSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
 import { shuffle } from "lodash";
 import { ChevronDownIcon } from "@heroicons/react/outline";
+import { useRouter } from "next/router";
 
 import Songs from "../../components/Songs";
 import useSpotify from "../../hooks/useSpotify";
-import { useRecoilValue, useRecoilState } from "recoil";
-import {
-  playlistIdState,
-  playlistState,
-} from "../../atoms/playlistAtom";
+import { useTrackSongs } from "../../hooks/useTracks";
 
 const colors = [
   "from-indigo-500",
@@ -23,36 +21,48 @@ const colors = [
   "from-slate-500",
 ];
 
+export interface TracksProps {
+  tracksId: string;
+}
+
 function Tracks() {
+  const router = useRouter();
   const spotifyApi = useSpotify();
+
+  const id = router.query.tracksId as string;
+
   const { data: session } = useSession();
   const [color, setColor] = useState(null);
-  const playlistId = useRecoilValue(playlistIdState);
-  const [tracks, setTracks] = useRecoilState(playlistState);
+  const [tracks, setTracks] = useState([]);
+  const [trackSongs] = useTrackSongs(id);
 
   useEffect(() => {
     setColor(shuffle(colors).pop());
-  }, []);
+  }, [colors]);
 
   useEffect(() => {
-    spotifyApi
-      .getPlaylist(playlistId)
-      .then((data) => {
-        setTracks(data.body);
-      })
-      .catch((err) => console.log("dsfsfgjhruyttufuif", err));
-  }, [spotifyApi, playlistId]);
+    if (id) {
+      spotifyApi
+        .getPlaylist(id)
+        .then((data) => {
+          setTracks(data?.body);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [spotifyApi, id]);
 
   return (
     <div className="flex-grow h-screen overflow-y-scroll scrollbar-hide">
       <header className="absolute top-5 right-8">
-        <div className="flex items-center p-1 pr-2 space-x-3 text-white bg-black rounded-full opacity-90 hover:opacity-80 cursor:pointer">
+        <div
+          className="flex items-center p-1 pr-2 space-x-3 text-white bg-black rounded-full opacity-90 hover:opacity-80 cursor:pointer"
+        >
           <img
             className="w-6 h-6 rounded-full"
             src={session?.user?.image}
             alt=""
           />
-          <h2>{session?.user.name}</h2>
+          <h2>{session?.user?.name}</h2>
           <ChevronDownIcon className="w-5 h-5" />
         </div>
       </header>
@@ -72,10 +82,20 @@ function Tracks() {
         </div>
       </section>
       <div className="">
-        <Songs />
+        <Songs tracks={trackSongs} />
       </div>
     </div>
   );
 }
 
 export default Tracks;
+
+export async function getServerSideProps(context) {
+  const session = await getSession(context);
+
+  return {
+    props: {
+      session,
+    },
+  };
+}

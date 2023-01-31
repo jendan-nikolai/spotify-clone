@@ -1,37 +1,45 @@
-import React, { useEffect } from 'react'
-import { useRecoilValue } from 'recoil';
-import { playlistState } from '../atoms/playlistAtom'
-import Song from '../components/Song'
-import useSpotify from '../hooks/useSpotify';
+import React, { useEffect, useState } from "react";
+import { useRecoilValue } from "recoil";
+import { useRouter } from "next/router";
 
-function Songs() {
-    const spotifyApi = useSpotify();
+import { playlistState } from "../atoms/playlistAtom";
+import Song, { SongProps } from "../components/Song";
+import useSpotify from "../hooks/useSpotify";
+import { useTrackSongs } from "../hooks/useTracks";
 
-    const playlist = useRecoilValue(playlistState);
-
-    useEffect(() => {
-        console.log('Centerplaylist', playlist)
-
-        if (spotifyApi.getAccessToken()) {
-            spotifyApi.getUserPlaylists().then((data) => {
-            });
-        }
-    }, [playlist, spotifyApi]);
-    return (
-        <div className='px-8 space-y-1 text-white flex-flex-col pb-28'>
-            {
-                playlist?.tracks?.items?.map((track, i) => {
-                    return (
-                            <Song
-                                key={track.track.id}
-                                track={track}
-                                order={i}
-                            />
-                    )
-                })
-            }
-        </div >
-    )
+export interface SongsProps {
+  tracks: SongProps[];
 }
 
-export default Songs
+export const Songs = ({ tracks }: SongsProps) => {
+  const [songs, setSongs] = useState([]);
+  // const songTracks = tracks.map((track: any) => track.tracks)
+
+  useEffect(() => {
+    console.log('tracks======', tracks)
+    const songTracks = tracks.map((track) => track.track);
+    console.log("songTracks", songTracks);
+    setSongs(songTracks);
+  }, [tracks]);
+
+  return (
+    <div className="px-8 space-y-1 text-white flex-flex-col pb-28">
+      {songs?.map((track: SongProps, i) => {
+        return (
+          <Song
+            // key={track.track.id}
+            order={i}
+            id={track?.id}
+            album={track?.album}
+            name={track?.name}
+            artists={track?.artists}
+            duration_ms={track?.duration_ms}
+            uri={track?.uri}
+          />
+        );
+      })}
+    </div>
+  );
+};
+
+export default Songs;

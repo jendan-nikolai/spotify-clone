@@ -1,20 +1,17 @@
+import { getSession } from "next-auth/react";
+
 import Sidebar from "../components/Sidebar";
 import HomePlaylist from "../components/HomePlaylist";
 import Player from "../components/Player";
-import { getSession } from "next-auth/react"
 
 export default function Home() {
   return (
-    <div className="h-screen overflow-hidden bg-black">
-      <main className="flex">
-        <Sidebar />
+    <div className="h-screen">
+      <main className="flex overflow-auto">
         <HomePlaylist />
       </main>
-      <div className="sticky bottom-0">
-        <Player />
-      </div>
     </div>
-  )
+  );
 }
 
 export async function getServerSideProps(context) {
@@ -22,8 +19,7 @@ export async function getServerSideProps(context) {
 
   return {
     props: {
-      session
-    }
-  }
+      session,
+    },
+  };
 }
-
