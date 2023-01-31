@@ -34,12 +34,10 @@ function Player() {
         if (!songInfo) {
             spotifyApi.getMyCurrentPlayingTrack().then((data) => {
                 setCurrentIdTrack(data.body?.item?.id);
-
                 spotifyApi.getMyCurrentPlaybackState().then((data) => {
                     setIsPlaying(data.body?.is_playing);
                 });
             });
-
         }
     };
 
@@ -82,7 +80,7 @@ function Player() {
             <div className="flex items-center space-x-4">
                 <img
                     className="hidden w-10 h-10 md:inline"
-                    src={songInfo?.album.images?.[0]?.url}
+                    src={songInfo?.album?.images?.[0]?.url}
                     alt=""
                 />
                 <div>
